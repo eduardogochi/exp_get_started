@@ -20,6 +20,8 @@ app.engine('hbs', engines.handlebars)
 app.set('views', './views')
 app.set('view engine', 'hbs')
 
+app.use('/profilepics',express.static('images'))
+
 app.get('/', (req, res) => {
   res.render('index', {users: users})
 })
@@ -36,7 +38,7 @@ app.get(/.*dog.*/, (req, res, next) => {
 
 app.get('/:username', (req, res) => {
     const username = req.params.username
-    res.send(username)
+    res.render('user',{username: username})
 })
 
 var server = app.listen(3000, () => {
