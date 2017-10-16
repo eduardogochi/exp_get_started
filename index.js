@@ -3,6 +3,7 @@ const app = express()
 
 const fs = require('fs')
 const _ = require('lodash')
+const engines = require('consolidate')
 const users = []
 
 fs.readFile('users.json', {encoding: 'utf8'}, (err,data) => {
@@ -14,8 +15,10 @@ fs.readFile('users.json', {encoding: 'utf8'}, (err,data) => {
     })
 })
 
+app.engine('hbs', engines.handlebars)
+
 app.set('views', './views')
-app.set('view engine', 'jade')
+app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
   res.render('index', {users: users})
